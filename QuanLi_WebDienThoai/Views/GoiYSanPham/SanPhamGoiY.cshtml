@@ -1,0 +1,19 @@
+﻿@model IEnumerable<QuanLi_WebDienThoai.Models.SanPhamModel>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="thumbnail">
+            <img src="/Content/themes/images/products/@item.HinhAnh" alt="Iphone Images" style="width:150px;height:150px;" />
+            <div class="caption">
+                <h5>@item.SP.Name</h5>
+                <h4 style="text-align:center"><a class="btn" href="@Url.Action("ChiTiet", "Home", new { @id = item.SP.id }, null)"> <i class="icon-zoom-in"></i></a> <a class="btn" href="@Url.Action("Them1GioHang", "DatHang", new { @id = item.SP.id }, null)">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">@item.SP.Gia</a></h4>
+            </div>
+        </div>
+        <br />
+    }
+}
+
+
+

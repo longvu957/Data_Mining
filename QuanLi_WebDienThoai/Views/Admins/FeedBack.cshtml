@@ -1,0 +1,38 @@
+﻿@model IEnumerable<QuanLi_WebDienThoai.Models.Feedback>
+
+@{
+    ViewBag.Title = "FeedBack";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h2>Phản hồi và báo cáo của khách hàng</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Tiêu đề
+        </th>
+        <th>
+            Nội dung
+        </th>
+        <th>
+            Ngày phản hồi
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TieuDe)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoiDung)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayPhanHoi)
+        </td>
+    </tr>
+}
+
+</table>

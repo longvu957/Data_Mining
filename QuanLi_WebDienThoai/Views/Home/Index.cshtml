@@ -1,0 +1,116 @@
+﻿@model IEnumerable<QuanLi_WebDienThoai.Models.SanPhamModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #successMessage {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 2;
+        width: 250px;
+       
+    }
+    #successMessage button{
+        position:absolute;
+        top:0;
+        right:0;
+        z-index:3;
+    }
+    #successMessage p{
+        padding:15px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+  
+    
+
+   
+
+</style>
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success" id="successMessage">
+        <button onclick="closeMessage()" class="btn btn-small btn-warning"><i class='bx bx-x'></i></button>
+        <p style="margin: 0;">@TempData["Message"]</p>
+    </div>
+
+
+
+}
+
+<div class="span9">
+    <div class="well well-small">
+        <h4>Featured Products</h4>
+        <div class="row-fluid">
+            <div id="featured" class="carousel slide">
+                <div class="carousel-inner">
+                    @for (int i = 0; i < Model.Count(); i += 4)
+                    {
+                        <div class="item @((i == 0) ? "active" : "")">
+                            <ul class="thumbnails">
+                                @foreach(var item in Model.Skip(i).Take(4))
+                                {
+                                <li class="span3">
+                                    <div class="thumbnail">
+                                        <i class="tag"></i>
+                                        <a href="@Url.Action("ChiTiet", "Home", new { @id = item.SP.id }, null)">
+                                            <img src="/Content/themes/images/products/@item.HinhAnh" alt="" style="width: 100px; height:100px;">
+                                        </a>
+                                        <div class="caption">
+                                            <h5>@item.SP.Name</h5>
+                                            <h4>
+                                                <a class="btn" href="@Url.Action("ChiTiet", "Home", new { @id = item.SP.id }, null)">VIEW</a>
+                                                <span class="pull-right">@Html.Action("KhuyenMai_SP", "DatHang", new { id = item.SP.id })</span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                </div>
+                <a class="left carousel-control" href="#featured" data-slide="prev">‹</a>
+                <a class="right carousel-control" href="#featured" data-slide="next">›</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <div class="span9">
+        <h4>Tat ca san pham</h4>
+        <ul class="thumbnails">
+            @foreach (var item in Model)
+            {
+                <li class="span3">
+                    <div class="thumbnail">
+                        <a href="/Home/ChiTiet/@item.SP.id"><img src="~/Content/themes/images/products/@item.HinhAnh" alt="" width="50%" height="50%" /></a>
+                        <div class="caption">
+                            <h5>@Html.DisplayFor(model => item.SP.Name)</h5>
+                            <p>
+                                @*@Html.Raw(item.SP.MoTa.Length > 20 ? item.SP.MoTa.Substring(0, 20) + "..." : item.SP.MoTa)*@
+                                Số lượng còn:
+                                @Html.DisplayFor(model => item.SP.SoLuongCon)
+                            </p>
+
+                            <h4 style="text-align:center"> <a class="btn" href="/DatHang/Them1GioHang/@item.SP.id">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">@Html.Action("KhuyenMai_SP", "DatHang", new { id = item.SP.id })</a></h4>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</table>
+<script type="text/javascript">
+    function closeMessage() {
+        var message = document.getElementById("successMessage");
+        message.style.display = "none";
+    }
+</script>
+

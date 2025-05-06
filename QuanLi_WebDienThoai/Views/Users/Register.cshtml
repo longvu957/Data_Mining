@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
+}
+<style>
+    #text input {
+        width: 90%;
+        padding: 8px 15px;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid gray;
+        margin: 10px auto;
+        border-radius: 0px;
+    }
+    #successMessage {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 2;
+        width: 250px;
+    }
+
+    #successMessage button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 3;
+    }
+
+    #successMessage p {
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+@if (ViewBag.LoginQL != null)
+{
+    <div class="alert alert-danger" id="successMessage">
+        @ViewBag.LoginQL
+        <button onclick="closeMessage()" class="btn btn-small btn-warning"><i class='bx bx-x'></i></button>
+    </div>
+
+}
+<div class="login-container">
+    <h3 class="text-center mb-4">ĐĂNG KÝ</h3>
+
+
+    <form action="/Users/Register" method="post">
+        <div class="form-group" id="text">
+            <label for="username">Tài khoản</label>
+            <input type="text" name="Username" class="form-control" id="username" placeholder="Tài khoản" required>
+        </div>
+
+        <div class="form-group" id="text">
+            <label for="email">Email</label>
+            <input type="email" name="Email" class="form-control" placeholder="email@example.com" id="email">
+        </div>
+        <div class="form-group" id="text">
+            <label for="SDT">Số điện thoại</label>
+            <input type="tel" name="SDT" class="form-control" placeholder="Số điện thoại" id="SDT">
+        </div>
+        <div class="form-group" id="text">
+            <label class="password">Mật khẩu</label>
+            <input type="password" name="Password" class="form-control" id="password" placeholder="Mật khẩu" required>
+        </div>
+        <div class="form-group">
+            <label for="gender">Giới tính</label>
+            <div style="display: flex; margin: 10px auto; width: 90%; padding: 8px 15px; ">
+                <div class="form-check" style="margin-right:10px">
+                    <input class="form-check-input" type="radio" name="Gender" id="male" value="Nam">
+                    <label class="form-check-label" for="male">Nam</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Gender" id="female" value="Nữ">
+                    <label class="form-check-label" for="female">Nữ</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" id="text">
+            <label class="diachi">Địa chỉ </label>
+            <input type="text" name="DiaChi" class="form-control" id="diachi" placeholder="Địa chỉ">
+        </div>
+
+        <div class="form-check text-left" style="width:90%;margin: 20px auto;display:flex;align-items:center;justify-content:center">
+            <input type="checkbox" class="form-check-input" id="terms" name="check" value="1" style="margin:0px 5px;padding:0;" required>
+            <label class="form-check-label" for="terms">Tôi đồng ý với các <a href="#">Điều khoản dịch vụ</a></label>
+        </div>
+        <button type="submit" class="btn btn-custom" style="width:30%;padding:8px;border-radius: 7px; margin: 15px auto; outline: none ; border: none  ">ĐĂNG KÝ</button>
+    </form>
+
+
+</div>
+
+<script type="text/javascript">
+    function closeMessage() {
+        var message = document.getElementById("successMessage");
+        message.style.display = "none";
+    }
+</script>

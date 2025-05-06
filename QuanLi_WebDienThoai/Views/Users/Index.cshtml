@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
+}
+
+<style>
+    .form-group input {
+        width: 90%;
+        padding: 8px 15px;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid gray;
+        border-radius: 0px;
+        margin: 10px auto;
+    }
+
+    .login-container {
+        position: relative;
+        z-index: 1;
+    }
+
+    #successMessage {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 2;
+        width: 250px;
+    }
+
+    #successMessage button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 3;
+    }
+
+    #successMessage p {
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+@if (ViewBag.LoginQL != null)
+{
+<div class="alert alert-danger" id="successMessage">
+    <button onclick="closeMessage()" class="btn btn-small btn-warning"><i class='bx bx-x'></i></button>
+    @ViewBag.LoginQL
+
+</div>
+
+}
+@if (TempData["MessageRegister"] != null)
+{
+<div class="alert alert-success" id="successMessage" style="display: flex; justify-content: space-between; align-items: center;">
+    <button onclick="closeMessage()" class="btn btn-small btn-success"><i class='bx bx-x'></i></button>
+    <p style="margin: 0;">@TempData["MessageRegister"]</p>
+</div>
+}
+
+<div class="login-container">
+    <h2>KOOKABURRAKLUB</h2>
+    <p style="color:#808080;font-size:15px">Để tiếp tục với chúng tôi</p>
+
+    <form action="/Users" method="post">
+        <div class="form-group">
+            <label for="username">Tài khoản</label>
+            <input type="text" class="form-control" id="username" name="Username" placeholder="Tài khoản" required>
+        </div>
+        <div class="form-group">
+            <label class="password">Mật khẩu</label>
+            <input type="password" name="Password" class="form-control" id="password" placeholder="Mật khẩu" required>
+        </div>
+        <div class="form-check mb-3 text-left" style="width:90%;margin: 20px auto;display:flex;align-items:center;justify-content:center">
+            <input type="checkbox" class="form-check-input" id="remember" style="margin:0px 5px;padding:0;">
+            <label class="form-check-label" for="remember" style="color: #808080;font-weight:bold">Ghi nhớ tài khoản này</label>
+        </div>
+        <button type="submit" class="btn btn-custom" style="width:30%;padding:8px;border-radius: 7px; margin: 15px auto; outline: none ; border: none  ">ĐĂNG NHẬP</button>
+    </form>
+
+    <div class="mt-3" style="font-size: 17px">
+        <a href="/" style="color: #808080; font-weight: bold">Quên mật khẩu?</a><br>
+        <a href="/Users/Register" style="color: #808080; font-weight: bold">Bạn chưa có tài khoản? Đăng ký</a>
+    </div>
+</div>
+<script type="text/javascript">
+    function closeMessage() {
+        var message = document.getElementById("successMessage");
+        message.style.display = "none";
+    }
+</script>
+
+
+
+
+

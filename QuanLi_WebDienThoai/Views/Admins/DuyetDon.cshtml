@@ -1,0 +1,68 @@
+﻿@model List<QuanLi_WebDienThoai.Models.DonHangModel>
+
+@{ ViewBag.Title = "DuyetDon";
+                Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+                var trangThai = ViewBag.TrangThai;
+                var trangThaiText = trangThai == 0 ? "Chưa duyệt" : (trangThai == 1 ? "Đã duyệt" : "Đã giao");
+                var currentPage = ViewBag.CurrentPage;
+                var totalPages = ViewBag.TotalPages; }
+<div class="mb-3 d-flex justify-content-between align-items-center">
+    <div>
+        <a href="@Url.Action("DuyetDon", new { trangThai = 0 })" class="btn btn-secondary">Chưa duyệt</a>
+        <a href="@Url.Action("DuyetDon", new { trangThai = 1 })" class="btn btn-secondary">Đã duyệt</a>
+        <a href="@Url.Action("DuyetDon", new { trangThai = 2 })" class="btn btn-secondary">Đã hủy</a>
+    </div>
+</div>
+<h2>Danh sách đơn hàng @trangThaiText</h2>
+
+<table class="table container-fluid">
+    <thead class="w-100">
+        <tr>
+            <th>Mã Hóa Đơn</th>
+            <th>Tên Khách Hàng</th>
+            <th>Ngày Đặt Hàng</th>
+            <th>Trạng Thái Giao Hàng</th>
+            <th>Ngày Nhận Hàng</th>
+            <th>Thanh Toán</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var donHang in Model)
+        {
+<tr>
+    <td>@donHang.Id</td>
+    <td>@donHang.TenKhachHang</td>
+    <td>@donHang.NgayDatHang</td>
+    <td>@(donHang.TrangThai == 0 ? "Chưa duyệt" : (donHang.TrangThai == 1 ? "Đã duyệt" : "Đã giao"))</td>
+    <td>@(donHang.NgayNhanHang == "" ? donHang.NgayNhanHang : "Trống")</td>
+    <td>@donHang.ThanhToan</td>
+    <td>
+        @if (donHang.TrangThai == 0)
+        {
+<a href="@Url.Action("DuyetDonHang", "Admins", new { maHoaDon = donHang.Id })" class="btn btn-primary FontSmall">Duyệt Đơn</a>}
+    </td>
+    <td>
+        @if (donHang.TrangThai < 2)
+        {
+<a href="@Url.Action("XoaDonHang", "Admins", new { maHoaDon = donHang.Id })" class="btn btn-danger">Hủy</a>}
+
+    </td>
+</tr>}
+
+    </tbody>
+</table>
+<div>
+    @*<ul class="pagination text-center">
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(i == currentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("DuyetDon", new { page = i, trangThai = trangThai })">@i</a>
+                </li>
+            }
+        </ul>*@
+</div>
+
+
+

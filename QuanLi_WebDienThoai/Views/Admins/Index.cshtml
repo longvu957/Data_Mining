@@ -1,0 +1,127 @@
+﻿@using QuanLi_WebDienThoai.Models
+@model IEnumerable<SanPhamWithSales>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+    int dem = 0;
+}
+
+
+<style>
+    .content {
+        background-color: #f8f9fa;
+    }
+
+    .stat-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+    }
+
+    .table thead th {
+        background-color: #e9ecef;
+    }
+
+    .text-danger {
+        color: red;
+    }
+
+    .pagination .page-link {
+        color: #007bff;
+    }
+
+    #mucluc {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<h3>Thống kê </h3>
+<!-- Main Content -->
+<div class="content flex-grow-1 p-4">
+    <!-- Header Stats -->
+    <div class="row text-center" id="mucluc">
+        <div class="col-md-2 mb-3">
+            <div class="stat-box bg-primary text-white p-3 rounded">
+                <h5 class="text-truncate">@String.Format("{0:0,00}", ViewBag.TongTien) đ</h5>
+                <p>Tổng doanh thu</p>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <div class="stat-box bg-danger text-white p-3 rounded">
+                <h5 class="text-truncate">@ViewBag.TongDonHang</h5>
+                <p>Tổng đơn hàng</p>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <div class="stat-box bg-info text-white p-3 rounded">
+                <h5 class="text-truncate">@String.Format("{0:0,00}", ViewBag.TongTienThangNay) đ</h5>
+                <p class="text-truncate">Doanh thu tháng</p>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <div class="stat-box bg-warning text-white p-3 rounded">
+                <h5 class="text-truncate">1</h5>
+                <p>Số người online</p>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <div class="stat-box bg-success text-white p-3 rounded">
+                <h5 class="text-truncate">1</h5>
+                <p>Số người truy cập</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order List Table -->
+    <h5 class="text-center mt-4">Danh sách sản phẩm bán chạy nhất</h5>
+    <div class="table-responsive ">
+        <table class="table table-bordered text-center mt-3">
+            <thead class="table-light">
+                <tr>
+                    <th>STT</th>
+                    <th>Mã sản phẩm</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Hình ảnh</th>
+                    <th>Đơn giá</th>
+                    <th>Số lượng đã bán</th>
+                    <th>Tổng tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    int tt = dem + 1;
+                    dem = tt;
+                <tr>
+                    <td>
+                        @dem
+                    </td>
+                    <td>@item.SanPham.id</td>
+                    <td>@item.SanPham.Name</td>
+                    <td>@Html.Action("HienThiAnh", "DatHang", new { id = item.SanPham.id })</td>
+                    <td>@String.Format("{0:0,00}", item.SanPham.Gia) đ</td>
+                    <td>@item.SoLuongDaBan</td>
+                    <td>@String.Format("{0:0,00}", item.SanPham.Gia * item.SoLuongDaBan) đ</td>
+                </tr>
+            }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-center mt-3">
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+
+

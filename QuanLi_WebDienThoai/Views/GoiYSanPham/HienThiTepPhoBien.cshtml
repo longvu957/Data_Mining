@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "HienThiTepPhoBien";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Tập phổ biến (dựa trên giao N-List)</h2>
+
+@if (ViewBag.FrequentItemsets != null)
+{
+    <ul>
+        @foreach (var itemset in ViewBag.FrequentItemsets as List<(List<int> ids, int support)>)
+        {
+            <p>ID sản phẩm: @string.Join(", ", itemset.ids), Support: @itemset.support</p>
+        }
+    </ul>
+}
+else
+{
+    <p>Không có tập phổ biến nào.</p>
+}
+

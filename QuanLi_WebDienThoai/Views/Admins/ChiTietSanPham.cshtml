@@ -1,0 +1,32 @@
+﻿@model QuanLi_WebDienThoai.Models.San_Pham
+@{
+    ViewBag.Title = "ChiTietSanPham";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>@Model.Name</h2>
+            <p><strong>Mã sản phẩm:</strong> @Model.id</p>
+            <p><strong>Loại sản phẩm:</strong> @Model.Loai_San_Pham.Name</p>
+            <p><strong>Giá:</strong>@String.Format("{0:0,00}", Model.Gia) VND</p>
+            <p><strong>Giới thiệu:</strong> @Model.GioiThieu</p>
+            <p><strong>Mô tả:</strong></p>
+            <p>@Html.Raw(Model.MoTa)</p>
+            <p><strong>Thương hiệu:</strong> @Model.ThuongHieu</p>
+            <p><strong>Kích thước:</strong> @Model.KichThuoc</p>
+            <p><strong>Độ phân giải:</strong> @Model.DoPhanGiai</p>
+            <p><strong>Dung lượng:</strong> @Model.DungLuong</p>
+            <p><strong>Ngày phát hành:</strong> @String.Format("{0: dd/MM/yyyy}", Model.NgayPhatHanh)</p>
+            <p><strong>Số lượng còn:</strong> @Model.SoLuongCon</p>
+            <p>Danh sách ảnh</p>
+            @Html.Action("dsAnh", "Admins")
+            <p>
+                @Html.ActionLink("Trở về", "Index", null, new { @class = "btn btn-primary" })
+            </p>
+        </div>
+    </div>
+</div>
+

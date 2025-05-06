@@ -1,0 +1,60 @@
+﻿@model QuanLi_WebDienThoai.PrePost.PrePostPPCTreeViewModel
+@{
+    ViewBag.Title = "FP-Tree with PrePost Codes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2 class="mt-4">FP-Tree with PreOrder &amp; PostOrder</h2>
+
+    @helper RenderPPCTree(QuanLi_WebDienThoai.PrePost.PPCTreeNode node)
+    {
+        <ul class="list-unstyled">
+            <li>
+                <strong>@node.Item</strong> (Count: @node.Count)
+                <span class="badge bg-secondary ms-2">
+                    Pre: @node.Pre | Post: @node.Post
+                </span>
+                @if (node.Children.Any())
+                {
+                    <ul>
+                        @foreach (var child in node.Children)
+                        {
+                            @RenderPPCTree(child)
+                        }
+                    </ul>
+                }
+            </li>
+        </ul>
+    }
+
+    @RenderPPCTree(Model.FP_Root)
+
+    <h3 class="mt-5">N‑List (Pre, Post, Count) per Item</h3>
+    <table class="table table-bordered table-striped">
+        <thead class="table-light">
+            <tr>
+                <th>Item</th>
+                <th>Pre</th>
+                <th>Post</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var kv in Model.NLists)
+            {
+                var item = kv.Key;
+                foreach (var entry in kv.Value)
+                {
+                    <tr>
+                        <td>@item</td>
+                        <td>@entry.Pre</td>
+                        <td>@entry.Post</td>
+                        <td>@entry.Count</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+

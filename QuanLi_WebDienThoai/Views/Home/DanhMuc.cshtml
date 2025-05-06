@@ -1,0 +1,31 @@
+﻿@model List<QuanLi_WebDienThoai.Models.LoaiSanPhamModel>
+
+<style>
+    #sideManu .subMenu:hover ul {
+        display: block;
+    }
+
+    #sideManu ul {
+        display: none;
+    }
+</style>
+
+<div class="well well-small"><a id="myCart" href="/DatHang/XemGioHang"><img src="/Content/themes/images/ico-cart.png" alt="cart">@Html.Action("SoLuongGioHang", "DatHang") Giỏ hàng  <span class="badge badge-warning pull-right"></span></a></div>
+<ul id="sideManu" class="nav nav-tabs nav-stacked">
+    @foreach (var item in Model)
+    {
+        <li class="subMenu">
+            <a href="#">@item.NameLoaiSP</a>
+            <ul>
+                <li><a href="@Url.Action("SanPham_DanhMuc", "Home", new { @MaLoai = item.SP.Loai_San_Pham_id }, null)"><i class="icon-chevron-right"></i>All</a></li>
+                @foreach (var brand in item.ThuongHieuList)
+                {
+                    <li><a href="@Url.Action("SanPham_ThuongHieu", "Home", new { @thuonghieu = brand, @MaLoai = item.SP.Loai_San_Pham_id }, null)"><i class="icon-chevron-right"></i>@brand</a></li>
+                }
+            </ul>
+        </li>
+    }
+</ul>
+
+<br />
+

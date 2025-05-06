@@ -1,0 +1,34 @@
+﻿@model IEnumerable<QuanLi_WebDienThoai.Models.SanPhamModel>
+
+@{
+    ViewBag.Title = "SanPham_DanhMuc";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>SanPham_DanhMuc</h2>
+
+<table class="table">
+    <div class="span9">
+        <h4>Tat ca san pham</h4>
+        <ul class="thumbnails">
+            @foreach (var item in Model)
+            {
+                <li class="span3">
+                    <div class="thumbnail">
+                        <a href="/Home/ChiTiet/@item.SP.id"><img src="/Images/HinhAnhSP/@item.HinhAnh" alt="" width="50%" height="50%" /></a>
+                        <div class="caption">
+                            <h5>@Html.DisplayFor(model => item.SP.Name)</h5>
+                            <p>
+                                @*@Html.Raw(item.SP.MoTa.Length > 20 ? item.SP.MoTa.Substring(0, 20) + "..." : item.SP.MoTa)*@
+                                Số lượng còn:
+                                @Html.DisplayFor(model => item.SP.SoLuongCon)
+                            </p>
+
+                            <h4 style="text-align:center"> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">@Html.DisplayFor(model => item.SP.Gia) VND</a></h4>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</table>

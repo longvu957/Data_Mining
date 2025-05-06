@@ -1,0 +1,17 @@
+﻿<h3 style="display: flex; justify-content: center;">Thanh toán khi nhận hàng</h3>
+<div class="order-summary" style="width:30%; display: flex; justify-content: center; margin: 0 auto">
+    <p>Tổng tiền hàng: @String.Format("{0:0,00}", (ViewBag.tt)) đ</p>
+    <p>Phí vận chuyển: 0 đ</p>
+    <p><b>Tổng thanh toán: <span class="total-price">@String.Format("{0:0,00}", (ViewBag.tt)) đ</span></b></p>
+</div>
+<style>
+    .order-summary {
+        border: 2px solid red;
+        padding: 10px;
+    }
+
+    .total-price {
+        font-weight: bold;
+        color: red;
+    }
+</style>

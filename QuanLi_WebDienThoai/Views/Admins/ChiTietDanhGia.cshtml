@@ -1,0 +1,36 @@
+﻿@using QuanLi_WebDienThoai.Models
+@model QuanLi_WebDienThoai.Models.DanhGia
+
+@{
+    ViewBag.Title = "ChiTietDanhGia";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+
+<div>
+    <h4>Đánh giá</h4>
+    <hr />
+    <table class="table">
+
+        <tr>
+            <td>Tên khách hàng: </td>
+            <td>@Model.User.Name</td>
+        </tr>
+        <tr>
+            <td>Tên sản phẩm: </td>
+            <td>@Model.San_Pham.Name</td>
+        </tr>
+        <tr>
+            <td>Nội dung: </td>
+            <td>@Model.NoiDung</td>
+        </tr>
+        <tr>
+            <td>Điểm đánh giá: </td>
+            <td>@Model.Vote</td>
+        </tr>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

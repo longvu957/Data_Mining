@@ -1,0 +1,43 @@
+﻿@model QuanLi_WebDienThoai.Models.Feedback
+
+@{
+    ViewBag.Title = "FeedBack_User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DateTime s = DateTime.Now;
+}
+
+<h3>TIẾP NHẬN GÓP Ý & PHẢN HỒI KHIẾU NẠI KHÁCH HÀNH</h3>
+
+<form action="/Users/FeedBack_User"method="post" enctype="multipart/form-data">
+    <table class="table" style="width:60%; margin-left:200px">
+        <tr>
+            <td>
+                <div class="column">
+                    <label for="problem">Vấn đề của bạn:</label>
+                    <input type="text" id="problem" class="form-control" name="TieuDe">
+                </div>
+            </td>
+
+            <td>
+                <div class="column">
+                    <label for="detail">Nội dung chi tiết:</label>
+                    <textarea id="detail" class="form-control" name="NoiDung"></textarea>
+                </div>
+            </td>
+
+        </tr>
+        <tr class="text-center">
+            <td rowspan="2">
+                    <label>Vấn đề của bạn:</label>
+                    <input type="date" name="NgayPhanHoi" value="@s">
+            </td>
+        </tr>
+        <tr><td>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px">
+                Gửi  
+                đi
+            </button>
+            </td>
+        </tr>
+    </table>
+</form>

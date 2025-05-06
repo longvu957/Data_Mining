@@ -1,0 +1,162 @@
+﻿@model IEnumerable<QuanLi_WebDienThoai.Models.San_Pham>
+
+@{
+    ViewBag.Title = "QuanLySanPham";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+<style>
+    .btn-them-khuyen-mai {
+        background-color: #28a745; /* Màu xanh lá */
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        display: inline-flex;
+        align-items: center;
+    }
+
+        .btn-them-khuyen-mai i {
+            margin-right: 8px; /* Khoảng cách giữa biểu tượng và văn bản */
+        }
+
+
+    a {
+        text-decoration: none; /* Không gạch chân */
+        color: aliceblue; /* Màu chữ xanh lá */
+        font-weight: bold; /* Đậm chữ */
+    }
+
+        /* Nếu bạn muốn tắt hiệu ứng hover, không thay đổi màu khi di chuột */
+        a:hover {
+            color: aliceblue; /* Giữ nguyên màu khi hover */
+            text-decoration: none; /* Không có gạch chân khi hover */
+        }
+</style>
+<h2>Quản lí sản phẩm</h2>
+
+@helper Trun(string i, int l)
+    {
+    if (i.Length<l)
+    {
+        @i
+    }
+    else
+    {
+        @i.Substring(0,l)<text>...</text>
+    }
+}
+
+<button class="btn-them-khuyen-mai">
+    <i class="fa fa-plus"></i> <a href="/Admins/ThemSanPham">Thêm sản phẩm mới</a>
+</button>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            <label>Mã</label>
+        </th>
+        <th>
+            <label>Tên sản phẩm</label>
+        </th>
+        <th>
+            <label>Đơn giá</label>
+        </th>
+        <th>
+            <label>Mô tả</label>
+        </th>
+        <th>
+            <label>Hình 1</label>
+        </th>
+        <th>
+            <label>Hình 2</label>
+        </th>
+        <th>
+            <label>Số lượng tồn</label>
+        </th>
+        <th>
+            <label>Mới</label>
+        </th>
+        <th>
+            <label>Đã xóa</label>
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @String.Format("{0:0,00}", item.Gia) VNĐ
+    </td>
+    <td>
+        @Trun(item.GioiThieu,100)
+    </td>
+    <td>
+        @Html.Action("HienThiAnh", "DatHang", new { id = item.id })
+    </td>
+    <td>
+        @Html.Action("HienThiAnh2", "DatHang", new { id = item.id })
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SoLuongCon)
+    </td>
+    <td>
+        Hàng mới
+    </td>
+    <td>
+        Còn hàng
+    </td>
+
+    <td>
+        <div class="button-group">
+            <button class="btn btn-primary btn-block">
+                <i class="fa fa-wrench"></i> <a href="/Admins/SuaSanPham/@item.id">SỬA</a>
+            </button>
+            <button class="btn btn-danger btn-block">
+                <i class="fa fa-trash"></i> <a onclick="xoa(@item.id)" href="#">XÓA</a>
+            </button>
+            <button class="btn btn-info btn-block">
+                <i class="fa fa-eye"></i> <a href="/Admins/ChiTietSanPham/@item.id">XEM</a>
+            </button>
+        </div>
+    </td>
+</tr>}
+
+</table>
+<script>
+    var xoa = function (id) {
+        if (confirm("Bạn có chắc chắn muốn xóa không?")) {
+            location.href = "Xoa/" + id
+        }
+    }
+</script>
+<style>
+    .button-group {
+        display: flex;
+        flex-direction: column; /* Xếp theo chiều dọc */
+        gap: 5px; /* Khoảng cách giữa các nút */
+    }
+
+        .button-group .btn {
+            font-weight: bold;
+            text-align: left; /* Căn trái cho icon và text */
+            display: flex;
+            align-items: center; /* Canh giữa icon và chữ */
+            justify-content: center;
+        }
+
+            .button-group .btn i {
+                margin-right: 8px; /* Khoảng cách giữa icon và chữ */
+            }
+
+</style>

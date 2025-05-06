@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "DanhGia";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+@model IEnumerable<QuanLi_WebDienThoai.Models.DanhGiaModel>
+
+<h2>Danh sách đánh giá sản phẩm</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Lượt đánh giá</th>
+            <th>Điểm đánh giá</th>
+            <th>Nội dung đánh giá</th>
+            <th>Sản phẩm</th>
+            <th>Người mua</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>
+                    @for (int i = 0; i < item.Vote; i++)
+                    {
+                        <span>⭐</span>
+                    }
+                </td>
+                <td><a href="@Url.Action("ChiTietDanhGia", "Admins", new { id = item.Id })" class="btn btn-primary FontSmall">Chi Tiết</a></td>
+                <td>@item.TenSanPham</td>
+                <td>@item.TenNguoiMua</td>
+            </tr>
+        }
+    </tbody>
+</table>

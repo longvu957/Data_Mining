@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "XacNhanThanhToan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Thiết lập nút mặc định */
+    .payment-button {
+        background-color: #d6d6d6;
+        color: white;
+        border: none;
+        padding: 15px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        /* Nút được chọn (khi có class 'active') */
+        .payment-button.active {
+            background-color: #007bff;
+        }
+</style>
+
+<div class="container text-center">
+    <div style="text-align: center;">
+        <h3 style="display: inline-block; border-bottom: 2px solid black; padding-bottom: 5px;">Thanh toán</h3>
+    </div>
+
+    <div style="display: flex; gap: 10px; justify-content: center;">
+        <a href="#" class="payment-link active" data-url="@Url.Action("ThanhToanKhiNhanHang", "DatHang",new { id = ViewBag.id, tongtien = ViewBag.tongtien })">Thanh toán khi nhận hàng</a>
+        <a href="#" class="payment-link" data-url="@Url.Action("ThanhToanTinDung", "DatHang",new { id = ViewBag.id, tongtien = ViewBag.tongtien })">Thẻ tín dụng hoặc ghi nợ</a>
+        <a href="#" class="payment-link" data-url="@Url.Action("ThanhToanNganHang", "DatHang",new { id = ViewBag.id, tongtien = ViewBag.tongtien })">Ngân hàng</a>
+        <a href="#" class="payment-link" data-url="@Url.Action("ThanhToanMomo", "DatHang",new { id = ViewBag.id, tongtien = ViewBag.tongtien })">Momo</a>
+    </div>
+
+    <!-- Vùng hiển thị PartialView -->
+    <div id="partialViewContainer" ></div>
+
+    <div style="display: flex; justify-content: center; margin: 0 auto;">
+        <form action="/DatHang/XacNhanThanhToan" method="post" style="margin:0 auto; text-align: center;">
+            <input type="hidden" name="id" value="@ViewBag.id" />
+            <input type="hidden" name="tongtien" value="@ViewBag.tongtien" />
+            <br />
+            <input type="submit" value="Thanh toán" style="margin: 0 auto; background-color: #d6d6d6;" class="btn" />
+        </form>
+    </div>
+
+</div>
+
+
+<script>
+    // Lấy tất cả các nút
+    const buttons = document.querySelectorAll('.payment-button');
+
+    // Lặp qua từng nút và thêm sự kiện click
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Xóa class 'active' khỏi tất cả các nút
+            buttons.forEach(btn => btn.classList.remove('active'));
+            // Thêm class 'active' vào nút được nhấn
+            button.classList.add('active');
+        });
+    });</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const links = document.querySelectorAll('.payment-link');
+        const container = document.getElementById('partialViewContainer');
+
+        // Gọi mặc định Action1 khi load trang
+        const defaultUrl = links[0].getAttribute('data-url'); // Lấy URL của link đầu tiên
+        fetch(defaultUrl)
+            .then(response => response.text())
+            .then(html => {
+                container.innerHTML = html; // Hiển thị PartialView mặc định
+                links[0].classList.add('active'); // Đánh dấu link đầu tiên là active
+            })
+            .catch(error => console.error('Error loading default partial view:', error));
+
+        // Thêm sự kiện click cho từng link
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault(); // Ngăn không reload trang
+                // Xóa class 'active' khỏi tất cả các liên kết
+                links.forEach(l => l.classList.remove('active'));
+                // Thêm class 'active' vào liên kết được nhấn
+                link.classList.add('active');
+
+                // Gọi URL từ data-url và tải nội dung vào container
+                const url = link.getAttribute('data-url');
+                fetch(url)
+                    .then(response => response.text())
+                    .then(html => {
+                        container.innerHTML = html; // Hiển thị PartialView
+                    })
+                    .catch(error => console.error('Error loading partial view:', error));
+            });
+        });
+    });
+</script>
+
+<style>
+    /* Liên kết mặc định */
+    .payment-link {
+        display: inline-block;
+        background-color: #d6d6d6;
+        color: white;
+        text-decoration: none;
+        padding: 15px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        transition: background-color 0.3s ease;
+    }
+
+        /* Liên kết được chọn */
+        .payment-link.active {
+            background-color: #007bff;
+        }
+
+        /* Hiệu ứng hover */
+        .payment-link:hover {
+            background-color: #0056b3;
+        }
+</style>

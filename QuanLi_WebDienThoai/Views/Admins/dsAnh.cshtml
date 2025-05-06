@@ -1,0 +1,9 @@
+﻿@model List<QuanLi_WebDienThoai.Models.Image>
+
+<ul>
+    @foreach (var item in Model)
+    {
+<li style="list-style:none">
+    <img src="~/Content/themes/images/products/@item.Name" />
+</li>}
+</ul>
